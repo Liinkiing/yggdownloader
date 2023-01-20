@@ -9,7 +9,7 @@ This is a Chrome extension that allows you to upload torrent links from YggTorre
 
 - Clone the repository.
 - Copy the `.env` file and fill it with your credentials to a `.env.local`.
-- Open Chrome and go to chrome://extensions/.
+- Open Chrome and go to `chrome://extensions/`.
 - Turn on the "Developer mode" toggle in the top right corner.
 - Build the extension with `yarn run build`.
 - Click on "Load unpacked" and select the folder where you have builded the extension. (`dist` folder)
