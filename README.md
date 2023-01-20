@@ -20,3 +20,10 @@ This is a Chrome extension that allows you to upload torrent links from YggTorre
 - Click on the "AllDebrid" button that will appear next to the torrent link.
 - The extension will automatically upload the torrent link to AllDebrid and copy the direct download link(s) to your clipboard if available.
 - Paste the link in your download manager or browser to start the download.
+
+## Motivations
+
+I was previously using a self-made website to search and handle all of this, but 
+recently YggTorrent has been using the new CloudFlare protection system and it's a 
+pain to bypass, so I decided to make a Chrome extension to handle this and use it
+directly from YggTorrent, so I could avoid CloudFlare protection.
