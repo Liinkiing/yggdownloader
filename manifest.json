@@ -1,7 +1,7 @@
 {
   "manifest_version": 3,
-  "name": "River downloader",
-  "version": "1.0.0",
+  "name": "YggDownloader",
+  "version": "0.0.1",
   "content_scripts": [
     {
       "js": ["src/content.ts"],

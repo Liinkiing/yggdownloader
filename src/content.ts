@@ -1,18 +1,18 @@
-import { createFlash, createRiverButton, findAllRiverLinks } from '~/utils/dom'
-import { downloadRiver } from '~/utils/ygg'
+import { createFlash, createTorrentButton, findAllTorrentLinks } from '~/utils/dom'
+import { downloadTorrent } from '~/utils/ygg'
 import { AllDebrid, isValidFile } from '~/services/alldebrid'
 
 // eslint-disable-next-line
-for (const link of findAllRiverLinks()) {
-  const button = createRiverButton()
+for (const link of findAllTorrentLinks()) {
+  const button = createTorrentButton()
   button.addEventListener('click', async () => {
     const href = link.getAttribute('href') ?? ''
     const hrefParts = href.split('/')
     const id = (hrefParts[hrefParts.length - 1] ?? '').split('-')[0]
-    const resp = await downloadRiver(id)
+    const resp = await downloadTorrent(id)
     if (resp.ok) {
-      const river = await resp.blob()
-      const file = await AllDebrid.uploadTorrent(river)
+      const torrent = await resp.blob()
+      const file = await AllDebrid.uploadTorrent(torrent)
       if (isValidFile(file)) {
         const flash = createFlash(`${file.name} added to AllDebrid.`)
         if (file.ready) {

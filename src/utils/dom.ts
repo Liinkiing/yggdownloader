@@ -1,11 +1,11 @@
 const FLASH_DURATION = 6000
 
-export const findAllRiverLinks = (): HTMLAnchorElement[] => {
-  const riverLinks = document.querySelectorAll<HTMLAnchorElement>('a#torrent_name')
-  return [...riverLinks]
+export const findAllTorrentLinks = (): HTMLAnchorElement[] => {
+  const torrentLinks = document.querySelectorAll<HTMLAnchorElement>('a#torrent_name')
+  return [...torrentLinks]
 }
 
-export const createRiverButton = (): HTMLButtonElement => {
+export const createTorrentButton = (): HTMLButtonElement => {
   const button = document.createElement('button')
   button.style.all = 'unset'
   button.style.marginLeft = '4px'
