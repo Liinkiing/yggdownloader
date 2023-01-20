@@ -1,0 +1,12 @@
+{
+  "extends": ["@liinkiing/eslint-config/react"],
+  "root": true,
+  "rules": {
+    "import/no-extraneous-dependencies": [
+      "error",
+      {
+        "devDependencies": ["vite.config.ts"]
+      }
+    ]
+  }
+}
