@@ -29,4 +29,6 @@ if (isLoggedIn) {
       link.parentNode?.append(button)
     }
   }
+} else {
+  console.log('[YggDownloader] - Not logged in.')
 }
