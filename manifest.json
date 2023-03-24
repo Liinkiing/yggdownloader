@@ -5,7 +5,7 @@
   "content_scripts": [
     {
       "js": ["src/content.ts"],
-      "matches": ["https://www6.yggtorrent.lol/*", "https://yggtorrent.lol/*"]
+      "matches": ["https://www3.yggtorrent.do/*", "https://yggtorrent.do/*"]
     }
   ]
 }
