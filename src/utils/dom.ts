@@ -1,7 +1,10 @@
 const FLASH_DURATION = 6000
 
 export const findAllTorrentLinks = (): HTMLAnchorElement[] => {
-  const torrentLinks = document.querySelectorAll<HTMLAnchorElement>('a#torrent_name')
+  let torrentLinks = document.querySelectorAll<HTMLAnchorElement>('a#torrent_name')
+  if (torrentLinks.length === 0) {
+    torrentLinks = document.querySelectorAll<HTMLAnchorElement>('table tbody tr td:nth-of-type(2) a')
+  }
   return [...torrentLinks]
 }
 
