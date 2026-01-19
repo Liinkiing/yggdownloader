@@ -9,6 +9,8 @@ import type {
   MagnetStatusResponse,
   MagnetUploadFile,
   UserResponse,
+  MagnetFilesResponse,
+  MagnetFileNode,
 } from '~/@types/services/alldebrid'
 
 export const isValidFile = (file: File | FileError): file is File => !('error' in file)
@@ -18,7 +20,7 @@ class AllDebridService {
 
   constructor(private apiKey: string) {
     this.client = axios.create({
-      baseURL: 'https://api.alldebrid.com/v4/',
+      baseURL: 'https://api.alldebrid.com/v4.1/',
       params: {
         agent: 'ezdownloader/v0',
         apikey: this.apiKey,
@@ -45,6 +47,48 @@ class AllDebridService {
     }
 
     return Array.isArray(response.data.data.magnets) ? response.data.data.magnets[0] : response.data.data.magnets
+  }
+
+  public async getMagnetFiles(magnetIds: number[]): Promise<string[]> {
+    const response = await this.client.get<BaseResponse<MagnetFilesResponse>>('magnet/files', {
+      params: {
+        id: magnetIds,
+      },
+    })
+
+    if (response.data.status === 'error') {
+      throw new Error(response.data.error.message)
+    }
+
+    const { magnets } = response.data.data
+
+    if (!magnets || magnets.length === 0) {
+      return []
+    }
+
+    const findAllFiles = (nodes: MagnetFileNode[]): string[] => {
+      const links: string[] = []
+      // eslint-disable-next-line no-restricted-syntax
+      for (const node of nodes) {
+        if ('l' in node) {
+          links.push(node.l)
+        }
+        if ('e' in node) {
+          links.push(...findAllFiles(node.e))
+        }
+      }
+      return links
+    }
+
+    const allLinks: string[] = []
+    // eslint-disable-next-line no-restricted-syntax
+    for (const magnet of magnets) {
+      if (magnet.files && magnet.files.length > 0) {
+        allLinks.push(...findAllFiles(magnet.files))
+      }
+    }
+
+    return allLinks
   }
 
   public async uploadTorrent(file: Blob): Promise<File | FileError> {

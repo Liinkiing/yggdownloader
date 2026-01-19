@@ -79,3 +79,21 @@ export type MagnetUpload = {
 export type MagnetUploadFile = {
   files: Array<File | FileError>
 }
+
+export type MagnetFileNode =
+  | {
+      n: string
+      s: number
+      l: string
+    }
+  | {
+      n: string
+      e: MagnetFileNode[]
+    }
+
+export type MagnetFilesResponse = {
+  magnets: Array<{
+    id: number
+    files: MagnetFileNode[]
+  }>
+}

@@ -11,13 +11,15 @@ export const downloadTorrentWithAllDebrid = async (id: string) => {
     if (isValidFile(file)) {
       const flash = createFlash(`${file.name} added to AllDebrid.`)
       if (file.ready) {
-        const status = await AllDebrid.getMagnetStatus(file.id)
-        if (status.links.length > 0) {
+        const downloadLinks = await AllDebrid.getMagnetFiles([file.id])
+        if (downloadLinks.length > 0) {
           await navigator.clipboard
-            .writeText(status.links.map(l => l.link).join('\n'))
+            .writeText(downloadLinks.join('\n'))
             // eslint-disable-next-line no-alert
             .catch(error => window.alert(error.message))
-          flash.textContent += ` ${status.links.length} links have been copied to your clipboard.`
+          flash.textContent += ` ${downloadLinks.length} link${
+            downloadLinks.length > 1 ? 's have' : ' has'
+          } been copied to your clipboard.`
         }
       }
       document.body.append(flash)
